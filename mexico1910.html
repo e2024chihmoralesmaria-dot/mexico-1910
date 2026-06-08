@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>México 1910: Revolución en un mundo de crisis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cinzel:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sepia': {
+                            50: '#f9f7f4',
+                            100: '#efe9e0',
+                            200: '#ddd0c0',
+                            300: '#c4b094',
+                            400: '#a88b6a',
+                            500: '#8b6f4e',
+                            600: '#6d5438',
+                            700: '#4a3826',
+                            800: '#2d2116',
+                            900: '#1a120c',
+                            950: '#0d0906',
+                        },
+                        'ink': '#0a0806',
+                        'parchment': '#f4e8d0',
+                        'rust': '#8b4513',
+                        'gold': '#c9a84c',
+                        'blood': '#6b1c1c',
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'],
+                        'heading': ['Playfair Display', 'serif'],
+                        'body': ['Libre Baskerville', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d0906;
+            color: #efe9e0;
+            font-family: 'Libre Baskerville', serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a120c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a3826;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d5438;
+        }
+
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Vignette */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 40;
+            background: radial-gradient(circle, transparent 50%, rgba(10,8,6,0.6) 100%);
+        }
+
+        /* Animations */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pan {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.15) translate(-2%, -2%); }
+            100% { transform: scale(1) translate(0, 0); }
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            20% { transform: translate(-15%, 5%); }
+            30% { transform: translate(7%, -25%); }
+            40% { transform: translate(-5%, 25%); }
+            50% { transform: translate(-15%, 10%); }
+            60% { transform: translate(15%, 0%); }
+            70% { transform: translate(0%, 15%); }
+            80% { transform: translate(3%, 35%); }
+            90% { transform: translate(-10%, 10%); }
+        }
+
+        .rise-animate {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .rise-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pan-hover {
+            overflow: hidden;
+        }
+        
+        .pan-hover img {
+            transition: transform 8s ease-in-out;
+        }
+        
+        .pan-hover:hover img {
+            transform: scale(1.15) translate(-2%, -2%);
+        }
+
+        /* Film grain effect for images */
+        .film-grain::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.08;
+            animation: grain 8s steps(10) infinite;
+            pointer-events: none;
+        }
+
+        /* Separator line */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #4a3826, transparent);
+        }
+        .ornament-symbol {
+            color: #c9a84c;
+            font-size: 1.5rem;
+        }
+
+        /* Image caption style */
+        .img-caption {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 0.875rem;
+            color: #a88b6a;
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+
+        /* Quote block */
+        .quote-block {
+            border-left: 3px solid #c9a84c;
+            padding-left: 2rem;
+            font-style: italic;
+            color: #ddd0c0;
+        }
+
+        /* Button style */
+        .btn-historic {
+            border: 1px solid #4a3826;
+            color: #ddd0c0;
+            padding: 0.75rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-historic:hover {
+            background: rgba(201, 168, 76, 0.1);
+            border-color: #c9a84c;
+            color: #f4e8d0;
+        }
+
+        /* Hero text shadow */
+        .hero-text-shadow {
+            text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Section number */
+        .section-number {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #c9a84c;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(30%) contrast(1.1);
+            transition: all 0.6s ease;
+        }
+        
+        .gallery-item:hover img {
+            filter: sepia(0%) contrast(1.2);
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1rem 1rem;
+            background: linear-gradient(to top, rgba(10,8,6,0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,8,6,0.95);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 1px solid #4a3826;
+        }
+
+        /* Video container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #4a3826;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 1px solid #4a3826;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 7px;
+            height: 7px;
+            background: #c9a84c;
+            border-radius: 50%;
+        }
+        
+        .timeline-item:last-child {
+            border-left: 1px solid transparent;
+        }
+
+        /* Women cards */
+        .woman-card {
+            background: rgba(26, 18, 12, 0.6);
+            border: 1px solid #2d2116;
+            transition: all 0.4s ease;
+        }
+        
+        .woman-card:hover {
+            border-color: #4a3826;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d0906;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #c9a84c;
+            letter-spacing: 0.3em;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-sepia-950 text-sepia-100">
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">MÉXICO 1910</div>
+    </div>
+
+    <!-- Overlays -->
+    <div class="noise-overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 bg-sepia-950/80 backdrop-blur-md border-b border-sepia-800/30 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-display text-gold text-lg tracking-widest">MÉXICO 1910</div>
+            <div class="hidden md:flex gap-8 text-sm font-display tracking-wider text-sepia-300">
+                <a href="#intro" class="hover:text-gold transition-colors">Introducción</a>
+                <a href="#porfiriato" class="hover:text-gold transition-colors">Porfiriato</a>
+                <a href="#constitucion" class="hover:text-gold transition-colors">1917</a>
+                <a href="#revolucion" class="hover:text-gold transition-colors">Revolución</a>
+                <a href="#planes" class="hover:text-gold transition-colors">Planes</a>
+                <a href="#mujeres" class="hover:text-gold transition-colors">Mujeres</a>
+                <a href="#video" class="hover:text-gold transition-colors">Video</a>
+            </div>
+            <button class="md:hidden text-gold" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-sepia-900 border-b border-sepia-800 px-6 py-4 space-y-3 font-display text-sm">
+            <a href="#intro" class="block text-sepia-300 hover:text-gold">Introducción</a>
+            <a href="#porfiriato" class="block text-sepia-300 hover:text-gold">Porfiriato</a>
+            <a href="#constitucion" class="block text-sepia-300 hover:text-gold">Constitución 1917</a>
+            <a href="#revolucion" class="block text-sepia-300 hover:text-gold">Revolución 1910</a>
+            <a href="#planes" class="block text-sepia-300 hover:text-gold">Los Planes</a>
+            <a href="#mujeres" class="block text-sepia-300 hover:text-gold">Mujeres</a>
+            <a href="#video" class="block text-sepia-300 hover:text-gold">Video</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Francisco_I._Madero%2C_1910.jpg/800px-Francisco_I._Madero%2C_1910.jpg" 
+                 alt="Revolución Mexicana" 
+                 class="w-full h-full object-cover opacity-30 filter sepia brightness-50 scale-110"
+                 style="animation: pan 20s ease-in-out infinite;">
+            <div class="absolute inset-0 bg-gradient-to-b from-sepia-950/60 via-transparent to-sepia-950"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto rise-animate visible">
+            <div class="section-number mb-6">UN SIGLO DE TRANSFORMACIÓN</div>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl font-black text-parchment hero-text-shadow leading-none mb-6 tracking-tight">
+                MÉXICO<br>
+                <span class="text-gold">1910</span>
+            </h1>
+            <div class="ornament max-w-md mx-auto mb-8">
+                <span class="ornament-symbol">✦</span>
+            </div>
+            <p class="font-heading text-xl md:text-2xl lg:text-3xl text-sepia-200 italic font-light max-w-3xl mx-auto leading-relaxed">
+                Revolución en un mundo de crisis
+            </p>
+            <p class="mt-8 text-sepia-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-body">
+                De la dictadura porfirista al nacimiento de una nación moderna. Un viaje por el tumultuoso decenio que redefinió el destino de México ante los ojos del mundo.
+            </p>
+            <div class="mt-12">
+                <a href="#intro" class="btn-historic inline-block">EXPLORAR LA HISTORIA</a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+    </header>
+
+    <!-- Section 1: Introducción + Contexto Internacional -->
+    <section id="intro" class="py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">01 / INTRODUCCIÓN</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-8">El Mundo en Crisis</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-sepia-200 leading-relaxed text-lg">
+                        <p>
+                            El año 1910 no fue un punto de inflexión únicamente para México. El mundo entraba en una era de convulsiones sin precedentes: la Revolución Rusa estaba a la vuelta de la esquina, el Imperio Otomano agonizaba, y las potencias europeas se encaminaban inexorablemente hacia la Gran Guerra.
+                        </p>
+                        <p>
+                            En este contexto global de transformación, México representó uno de los capítulos más dramáticos del siglo XX. La Revolución Mexicana no fue un simple levantamiento armado: fue la primera revolución social del siglo, un laboratorio de ideas políticas que resonaría desde Moscú hasta Buenos Aires.
+                        </p>
+                        <div class="quote-block mt-8">
+                            <p class="text-xl">"La Revolución Mexicana demostró que los pueblos latinoamericanos podían forjar su propio destino frente a los imperios y las dictaduras."</p>
+                        </div>
+                    </div>
+                    <div class="pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/omniatlas-media.b-cdn.net/d4f9b638f8bb436d6a9694f3e16b8c4f31041f70.png" 
+                             alt="Mapa político de México 1910" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Situación política de México en 1911, al inicio de la Revolución</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 2: Porfiriato - Crecimiento Económico -->
+    <section id="porfiriato" class="py-24 md:py-32 relative bg-sepia-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">02 / EL PORFIRIATO</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4">La Era de las Lámparas</h2>
+                <p class="text-gold text-lg italic font-heading mb-12">Crecimiento económico e impacto político (1876-1911)</p>
+                
+                <div class="grid md:grid-cols-12 gap-8 mb-16">
+                    <div class="md:col-span-7 space-y-6 text-sepia-200 leading-relaxed text-lg">
+                        <p>
+                            Bajo el lema <em class="text-parchment">"Orden y Progreso"</em>, Porfirio Díaz transformó el rostro de México durante tres décadas. Las vías férreas crecieron de 400 a 19,000 kilómetros, las minas de oro y plata florecieron, y por primera vez México se proyectó como una nación moderna ante el mundo.
+                        </p>
+                        <p>
+                            La Ciudad de México se modernizó con bulevares, alumbrado eléctrico y tranvías. Sin embargo, este progreso tenía un rostro oscuro: el 95% de las tierras fértiles estaban concentradas en menos del 1% de la población, y el capital extranjero —especialmente estadounidense y británico— controlaba los recursos estratégicos del país.
+                        </p>
+                    </div>
+                    <div class="md:col-span-5 pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/images.imagerenderer.com/04c668905a1a0ecba8b28508bf95746beea98ba5.jpg" 
+                             alt="Retrato oficial de Porfirio Díaz" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Retrato oficial de Porfirio Díaz en uniforme de gala</p>
+                    </div>
+                </div>
+
+                <!-- Negative Aspects -->
+                <div class="rise-animate mt-20">
+                    <h3 class="font-display text-3xl md:text-4xl text-blood mb-8">Las Sombras del Progreso</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-sepia-900/50 p-6 border border-sepia-800/50">
+                            <div class="text-gold text-2xl mb-4">✦</div>
+                            <h4 class="font-display text-xl text-parchment mb-3">Concentración de Tierras</h4>
+                            <p class="text-sepia-300 text-sm leading-relaxed">Los hacendados y empresas extranjeras acapararon las tierras comunales, despojando a pueblos indígenas y campesinos de sus territorios ancestrales mediante la Ley de Desamortización.</p>
+                        </div>
+                        <div class="bg-sepia-900/50 p-6 border border-sepia-800/50">
+                            <div class="text-gold text-2xl mb-4">✦</div>
+                            <h4 class="font-display text-xl text-parchment mb-3">Régimen Autoritario</h4>
+                            <p class="text-sepia-300 text-sm leading-relaxed">Díaz se reeligió una y otra vez mediante elecciones fraudulentas. La prensa era censurada, la oposición perseguida, y el ejército federal se convirtió en instrumento de represión.</p>
+                        </div>
+                        <div class="bg-sepia-900/50 p-6 border border-sepia-800/50">
+                            <div class="text-gold text-2xl mb-4">✦</div>
+                            <h4 class="font-display text-xl text-parchment mb-3">Desigualdad Social</h4>
+                            <p class="text-sepia-300 text-sm leading-relaxed">Mientras las élites vivían en palacios europeos, el 80% de la población rural vivía en condiciones de peonaje, con jornadas de 12 horas y salarios de hambre.</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pan-hover relative film-grain max-w-2xl mx-auto">
+                        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/106081c962792bb2a500afb61a74518df47845e2.jpg" 
+                             alt="Ciudad de México durante el Porfiriato" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">La Ciudad de México hacia 1905-1910, símbolo del "progreso" porfirista</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 3: Constitución 1917 -->
+    <section id="constitucion" class="py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">03 / CONSTITUCIÓN DE 1917</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4">La Carta Magna</h2>
+                <p class="text-gold text-lg italic font-heading mb-12">Impacto internacional de una constitución radical</p>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/b4967e9cfdd6cb26918364b33e1b3cb2cdd526c5.png" 
+                             alt="Portada original de la Constitución de 1917" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Portada interior original de la Constitución Política de los Estados Unidos Mexicanos, 1917</p>
+                    </div>
+                    
+                    <div class="space-y-6 text-sepia-200 leading-relaxed text-lg">
+                        <p>
+                            Promulgada el 5 de febrero de 1917 en Querétaro, esta constitución fue la primera del mundo en establecer derechos sociales fundamentales: jornada máxima de 8 horas, salario mínimo, derecho a la huelga, y —lo más radical— la propiedad originaria de la nación sobre las tierras y aguas.
+                        </p>
+                        <p>
+                            Su impacto internacional fue inmediato. La Constitución mexicana inspiró la Weimar alemana, la Constitución española de 1931, y sentó precedentes para la Declaración Universal de Derechos Humanos. Artículos como el 27 y el 123 se convirtieron en modelo para las reformas sociales de todo el siglo XX.
+                        </p>
+                        
+                        <div class="bg-sepia-900/50 p-6 border-l-2 border-gold mt-8">
+                            <h4 class="font-display text-gold mb-4">Artículos Revolucionarios</h4>
+                            <ul class="space-y-3 text-sm text-sepia-300">
+                                <li><span class="text-gold">Art. 3°:</span> Educación laica, gratuita y obligatoria</li>
+                                <li><span class="text-gold">Art. 27:</span> Propiedad originaria de la Nación sobre tierras y aguas</li>
+                                <li><span class="text-gold">Art. 123:</span> Derechos laborales: 8 horas, salario mínimo, huelga</li>
+                                <li><span class="text-gold">Art. 130:</span> Separación Iglesia-Estado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 pan-hover relative film-grain max-w-3xl mx-auto">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.gob.mx/429f112e525be5bc2ef6b0d9873d77f4d92b81e8.jpg" 
+                         alt="Congreso Constituyente de 1917" 
+                         class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                    <p class="img-caption">Miembros del Congreso Constituyente de Querétaro, 1916-1917</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 4: Inicio Revolución 1910 -->
+    <section id="revolucion" class="py-24 md:py-32 relative bg-sepia-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">04 / 1910</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4">La Chispa Encendida</h2>
+                <p class="text-gold text-lg italic font-heading mb-12">Inicio de la Revolución, intervención y relaciones internacionales</p>
+                
+                <div class="grid md:grid-cols-12 gap-8 mb-16">
+                    <div class="md:col-span-5 pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/media.gettyimages.com/2ef4a409a8f03d34da9ef9ecc10439564906751e.jpg" 
+                             alt="Francisco I. Madero" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Francisco I. Madero, líder del movimiento antirreeleccionista</p>
+                    </div>
+                    <div class="md:col-span-7 space-y-6 text-sepia-200 leading-relaxed text-lg">
+                        <p>
+                            El 20 de noviembre de 1910, Francisco I. Madero lanzó el Plan de San Luis Potosí, convocando a la nación a tomar las armas contra la dictadura. Lo que comenzó como un movimiento político liberal se transformó rápidamente en una revolución social de masas.
+                        </p>
+                        <p>
+                            Las potencias extranjeras observaron con inquietud. Estados Unidos, con inversiones millonarias en petróleo y minas, temía la inestabilidad. La "Intervención estadounidense" en Veracruz de 1914 y el reconocimiento tardío del gobierno constitucionalista evidenciaron la tensión entre soberanía nacional y presión internacional.
+                        </p>
+                        <p>
+                            Carranza supo navegar estas aguas: rechazó la Doctrina Carranza (1918) que buscaba limitar la intervención extranjera en asuntos internos, y estableció las bases de una política exterior independiente que influiría en toda América Latina.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/cdn.britannica.com/39777f444ab3312b160529edd15d9eac2b96619a.jpg" 
+                             alt="Revolucionarios mexicanos" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Grupo de revolucionarios armados durante la campaña de 1910-1911</p>
+                    </div>
+                    <div class="pan-hover relative film-grain">
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.thoughtco.com/2f68fb7a692fa7f9720ecb7d39727674b5eaba4b.jpg" 
+                             alt="Batalla de la Revolución Mexicana" 
+                             class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                        <p class="img-caption">Tropas federales en trincheras durante los combates de la Revolución</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 5: Los 6 Planes -->
+    <section id="planes" class="py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">05 / LOS PLANES REVOLUCIONARIOS</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4">Seis Documentos, Un Pueblo</h2>
+                <p class="text-gold text-lg italic font-heading mb-12">Los manifiestos que forjaron una nación</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Plan 1 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1910</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de San Luis Potosí</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Francisco I. Madero. Declaró nulas las elecciones de 1910, estableció la No Reelección y convocó a la insurrección armada para el 20 de noviembre.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+
+                    <!-- Plan 2 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1911</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de Ayala</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Emiliano Zapata. Exigió restitución de tierras a los pueblos, desconoció a Madero por traicionar los principios agrarios, y sentó las bases del zapatismo.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+
+                    <!-- Plan 3 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1913</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de Guadalupe</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Venustiano Carranza. Rechazó el gobierno de Huerta tras el asesinato de Madero, proclamó el Ejército Constitucionalista y la restitución legal del orden.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+
+                    <!-- Plan 4 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1914</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de Ayutla</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Integración de fuerzas revolucionarias. Buscó unificar los distintos ejércitos contra el huertismo y establecer un gobierno provisional unificado.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+
+                    <!-- Plan 5 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1914</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de Guadalupe Victoria</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Pablo González. Reforzó la lucha constitucionalista desde el noreste, coordinando tropas para la caída definitiva del dictador Victoriano Huerta.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+
+                    <!-- Plan 6 -->
+                    <div class="bg-sepia-900/40 border border-sepia-800/50 p-6 hover:border-gold/50 transition-all duration-500 group">
+                        <div class="text-gold/50 text-sm font-display mb-2">1915</div>
+                        <h3 class="font-display text-2xl text-parchment mb-3 group-hover:text-gold transition-colors">Plan de Agua Prieta</h3>
+                        <p class="text-sepia-300 text-sm leading-relaxed mb-4">Sonora. Desconoció a Carranza tras su caída, representó el ascenso del grupo sonorense y sentó las bases para la etapa posrevolucionaria institucional.</p>
+                        <div class="h-px bg-sepia-800 w-full"></div>
+                    </div>
+                </div>
+
+                <div class="mt-12 pan-hover relative film-grain max-w-2xl mx-auto">
+                    <img src="https://kimi-web-img.moonshot.cn/img/s1.img.bidsquare.com/e5016ab37e64a0ce5a09314a5b3d069da9af9326.jpeg" 
+                         alt="Documento original del Plan de Guadalupe" 
+                         class="w-full rounded-sm shadow-2xl border border-sepia-800">
+                    <p class="img-caption">Documento original del Plan de Guadalupe, 1913</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 6: Las 6 Mujeres Revolucionarias -->
+    <section id="mujeres" class="py-24 md:py-32 relative bg-sepia-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">06 / LAS SOLDADERAS</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4">Seis Mujeres de Fuego</h2>
+                <p class="text-gold text-lg italic font-heading mb-12">Voces femeninas que forjaron la Revolución</p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Petra Herrera -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.tshaonline.org/63762fa73169364f59808f7ac3878188d8452f65.jpg" 
+                                 alt="Soldaderas de la Revolución Mexicana" 
+                                 class="w-full h-full object-cover filter sepia contrast-125">
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Petra Herrera</h3>
+                        <p class="text-gold text-sm mb-3">Comandante de Zapata</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Disfrasada de hombre con el nombre de "Pedro Herrera", comandó tropas zapatistas en el sur. Reveló su identidad tras demostrar su valor en combate y lideró batallones enteros de soldaderas.</p>
+                    </div>
+
+                    <!-- Margarita Neri -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.tshaonline.org/63762fa73169364f59808f7ac3878188d8452f65.jpg" 
+                                 alt="Mujeres revolucionarias" 
+                                 class="w-full h-full object-cover filter sepia contrast-125">
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Margarita Neri</h3>
+                        <p class="text-gold text-sm mb-3">Estratega del Sur</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Descrita como una de las mujeres "más temibles" del Ejército Libertador del Sur. Participó activamente en la toma de ciudades y en la logística de las fuerzas zapatistas en Morelos.</p>
+                    </div>
+
+                    <!-- Angela Jiménez -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.tshaonline.org/63762fa73169364f59808f7ac3878188d8452f65.jpg" 
+                                 alt="Combatientes femeninas" 
+                                 class="w-full h-full object-cover filter sepia contrast-125">
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Ángela Jiménez</h3>
+                        <p class="text-gold text-sm mb-3">Tiradora de elite</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Conocida como "Angel Jiménez" al disfrazarse de hombre. Fue reconocida por su puntería excepcional y su participación en múltiples batallas del norte de México junto a las tropas villistas.</p>
+                    </div>
+
+                    <!-- Juana Belén Gutiérrez -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <div class="w-full h-full bg-sepia-800 flex items-center justify-center">
+                                <span class="font-display text-4xl text-gold/30">JB</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Juana Belén Gutiérrez</h3>
+                        <p class="text-gold text-sm mb-3">Periodista y Guerrillera</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Fundadora del periódico "Vésper". Combatió en Chihuahua y Durango, y usó la pluma como arma ideológica, denunciando la corrupción y defendiendo los derechos de los trabajadores y las mujeres.</p>
+                    </div>
+
+                    <!-- Dolores Jiménez y Muro -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <div class="w-full h-full bg-sepia-800 flex items-center justify-center">
+                                <span class="font-display text-4xl text-gold/30">DJM</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Dolores Jiménez y Muro</h3>
+                        <p class="text-gold text-sm mb-3">Maestra y Revolucionaria</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Organizó el "Club Femenil Antirreeleccionista" en Texcoco. Fue encarcelada por sus actividades políticas y posteriormente se unió al ejército constitucionalista como enfermera y estratega.</p>
+                    </div>
+
+                    <!-- Rosa Bobadilla -->
+                    <div class="woman-card p-6">
+                        <div class="h-48 bg-sepia-800/50 mb-4 overflow-hidden relative">
+                            <div class="w-full h-full bg-sepia-800 flex items-center justify-center">
+                                <span class="font-display text-4xl text-gold/30">RB</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl text-parchment mb-2">Rosa Bobadilla</h3>
+                        <p class="text-gold text-sm mb-3">Líder Obrera</p>
+                        <p class="text-sepia-300 text-sm leading-relaxed">Organizó a las trabajadoras textiles en Puebla y Tlaxcala. Fue una de las primeras defensoras de los derechos laborales femeninos y participó en las huelgas que precedieron a la Revolución.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <p class="text-sepia-400 italic max-w-2xl mx-auto">
+                        "Las soldaderas no solo cocinaron y cuidaron heridos: cargaron rifles, comandaron tropas y escribieron con sangre la primera página de los derechos de la mujer mexicana."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 7: Video -->
+    <section id="video" class="py-24 md:py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">07 / DOCUMENTO HISTÓRICO</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-4 text-center">Biografía del Porfiriato</h2>
+                <p class="text-gold text-lg italic font-heading mb-12 text-center">Documental visual sobre la era de Porfirio Díaz</p>
+                
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Biografía del Porfiriato" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="text-center text-sepia-500 text-sm mt-4 italic">
+                    *Nota: Reemplaza el enlace de YouTube con el video documental específico sobre el Porfiriato
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 8: Galería Grid -->
+    <section class="py-24 md:py-32 relative bg-sepia-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">08 / GALERÍA</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-12 text-center">Imágenes de una Época</h2>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item md:col-span-2 md:row-span-2" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/cdn.britannica.com/f950052d02bf3940525c5506edf857ff2ddf59d9.jpg" alt="Entrada triunfal de Madero">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Entrada triunfal de Madero</h4>
+                            <p class="text-sepia-300 text-sm">Ciudad de México, 1911</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.loc.gov/5b1dbd32072cb5a41f9d09e22d61c3516e1b269e.jpg" alt="Zapata y sus hombres">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Zapata y sus hombres</h4>
+                            <p class="text-sepia-300 text-sm">Cuernavaca, 1911</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/cdn.britannica.com/31c88ac97981ed18f8108fefcb20aeabfa5019ec.jpg" alt="Díaz a caballo">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Porfirio Díaz</h4>
+                            <p class="text-sepia-300 text-sm">C. 1900</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/texashistory.unt.edu/cc2a1d99b94397d910f7d80717b5968e99b9e1eb" alt="Artillería revolucionaria">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Artillería de Campo</h4>
+                            <p class="text-sepia-300 text-sm">1913-1914</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/www.thoughtco.com/95d6350349cf68dde68bf06a63b9b304e87bda3e.jpg" alt="Líderes revolucionarios">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Líderes Revolucionarios</h4>
+                            <p class="text-sepia-300 text-sm">Reunión histórica</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item md:col-span-2" onclick="openLightbox(this)">
+                        <img src="https://kimi-web-img.moonshot.cn/img/relatosehistorias.mx/397928bc5bf2ed7acc5f7a5d86b437888ae7caf1.jpg" alt="Firma de la Constitución">
+                        <div class="gallery-overlay">
+                            <h4 class="font-display text-parchment">Firma de la Constitución</h4>
+                            <p class="text-sepia-300 text-sm">Querétaro, 1917</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+        <p id="lightbox-caption" class="text-parchment mt-4 font-display text-lg"></p>
+        <p class="text-sepia-400 text-sm mt-2">Click para cerrar</p>
+    </div>
+
+    <div class="ornament max-w-4xl mx-auto"><span class="ornament-symbol">❧</span></div>
+
+    <!-- Section 9: Conclusión -->
+    <section class="py-24 md:py-32 relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="rise-animate">
+                <div class="section-number">09 / CONCLUSIÓN</div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-parchment mb-8">El Legado del Decenio</h2>
+                
+                <div class="space-y-6 text-sepia-200 leading-relaxed text-lg">
+                    <p>
+                        La Revolución Mexicana de 1910 no terminó con la firma de la Constitución ni con la caída de Carranza. Fue un proceso de una década que transformó la estructura social, económica y política de México de manera irreversible.
+                    </p>
+                    <p>
+                        De las cenizas del Porfiriato surgió un Estado que reconoció por primera vez los derechos de los trabajadores, la propiedad social de la tierra, y la soberanía nacional sobre los recursos naturales. Fue una revolución que miró al mundo desde América Latina, inspirando movimientos de liberación durante todo el siglo XX.
+                    </p>
+                    <p>
+                        Hoy, más de un siglo después, los debates que encendieron las trincheras de 1910 —la justicia social, la equidad, la soberanía— siguen siendo el horizonte de una nación que continúa forjando su destino.
+                    </p>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <div class="inline-block border-t border-b border-sepia-800 py-8 px-12">
+                        <p class="font-display text-2xl text-gold italic">"La Revolución es un torrente que no puede ser detenido"</p>
+                        <p class="text-sepia-500 mt-2">— Ricardo Flores Magón</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Sources -->
+    <footer class="bg-sepia-950 border-t border-sepia-800/50 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="rise-animate">
+                <h3 class="font-display text-2xl text-gold mb-8 tracking-widest">FUENTES Y REFERENCIAS</h3>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <a href="https://es.wikipedia.org/wiki/Revoluci%C3%B3n_Mexicana" target="_blank" class="group block">
+                        <div class="text-sepia-500 text-xs mb-2 font-display">01</div>
+                        <h4 class="text-parchment group-hover:text-gold transition-colors font-display mb-2">Revolución Mexicana</h4>
+                        <p class="text-sepia-400 text-sm">Wikipedia — Enciclopedia libre. Artículo completo sobre el desarrollo histórico del movimiento armado de 1910-1920.</p>
+                        <div class="mt-3 text-xs text-gold/50 group-hover:text-gold transition-colors">↗ wikipedia.org</div>
+                    </a>
+                    
+                    <a href="https://es.wikipedia.org/wiki/Porfiriato" target="_blank" class="group block">
+                        <div class="text-sepia-500 text-xs mb-2 font-display">02</div>
+                        <h4 class="text-parchment group-hover:text-gold transition-colors font-display mb-2">Porfiriato</h4>
+                        <p class="text-sepia-400 text-sm">Wikipedia — Periodo histórico de 1876-1911. Análisis del crecimiento económico, modernización y estructura política del régimen.</p>
+                        <div class="mt-3 text-xs text-gold/50 group-hover:text-gold transition-colors">↗ wikipedia.org</div>
+                    </a>
+                    
+                    <a href="https://es.wikipedia.org/wiki/Constituci%C3%B3n_Pol%C3%ADtica_de_los_Estados_Unidos_Mexicanos" target="_blank" class="group block">
+                        <div class="text-sepia-500 text-xs mb-2 font-display">03</div>
+                        <h4 class="text-parchment group-hover:text-gold transition-colors font-display mb-2">Constitución de 1917</h4>
+                        <p class="text-sepia-400 text-sm">Wikipedia — Texto completo y contexto histórico de la Carta Magna promulgada en Querétaro el 5 de febrero de 1917.</p>
+                        <div class="mt-3 text-xs text-gold/50 group-hover:text-gold transition-colors">↗ wikipedia.org</div>
+                    </a>
+                    
+                    <a href="https://www.gob.mx/sre/articulos/centennial-of-the-mexican-constitution" target="_blank" class="group block">
+                        <div class="text-sepia-500 text-xs mb-2 font-display">04</div>
+                        <h4 class="text-parchment group-hover:text-gold transition-colors font-display mb-2">Centenario Constitución</h4>
+                        <p class="text-sepia-400 text-sm">Gobierno de México — Secretaría de Relaciones Exteriores. Documentos oficiales del centenario y archivo histórico.</p>
+                        <div class="mt-3 text-xs text-gold/50 group-hover:text-gold transition-colors">↗ gob.mx</div>
+                    </a>
+                </div>
+
+                <div class="border-t border-sepia-800/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="font-display text-gold text-sm tracking-widest">MÉXICO 1910</div>
+                    <div class="text-sepia-600 text-xs">Proyecto educativo histórico. Imágenes de dominio público y archivos históricos.</div>
+                    <div class="text-sepia-700 text-xs">2024</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.rise-animate').forEach((el) => observer.observe(el));
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('bg-sepia-950/95', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-sepia-950/95', 'shadow-lg');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Lightbox
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const title = element.querySelector('h4').textContent;
+            const desc = element.querySelector('p').textContent;
+            
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').textContent = title + ' — ' + desc;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Keyboard close lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
